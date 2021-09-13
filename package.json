@@ -1,74 +1,84 @@
 {
-	"name": "gulp-es6",
-	"version": "1.1.0",
-	"description": "Gulpfile setup for Javascript ES6 compiling, plus SCSS, images, and fonts handling",
-	"author": "Alessandro Castellani <me@alecaddd.com> (http://alecaddd.com)",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Alecaddd/gulp-es6"
-	},
-	"keywords": [
-		"gulp",
-		"es6",
-		"scss"
-	],
-	"scripts": {
-		"build":"gulp"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.2.2",
-		"@babel/preset-env": "^7.2.3",
-		"babelify": "^10.0.0",
-		"browser-sync": "^2.26.3",
-		"browserify": "^16.2.3",
-		"browserify-shim": "^3.8.14",
-		"gulp": "^4.0.0",
-		"gulp-autoprefixer": "^6.0.0",
-		"gulp-concat": "^2.5.2",
-		"gulp-if": "^2.0.2",
-		"gulp-notify": "^3.0.0",
-		"gulp-options": "^1.1.1",
-		"gulp-plumber": "^1.2.1",
-		"gulp-rename": "^1.2.0",
-		"gulp-sass": "^4.0.2",
-		"gulp-sourcemaps": "^2.6.1",
-		"gulp-strip-debug": "^3.0.0",
-		"gulp-uglify": "^3.0.0",
-		"gulp-uglifycss": "^1.0.9",
-		"vinyl-buffer": "^1.0.0",
-		"vinyl-source-stream": "^2.0.0"
-	},
-	"dependencies": {
-		"highlight.js": "10.1.2",
-		"highlightjs-solidity": "1.0.18",
-		"jquery": "3.5.1",
-		"lodash": "4.17.20",
-		"markdown-it": "11.0.0",
-		"markdown-it-abbr": "1.0.4",
-		"markdown-it-anchor": "5.3.0",
-		"markdown-it-container": "3.0.0",
-		"markdown-it-deflist": "2.0.3",
-		"markdown-it-emoji": "1.4.0",
-		"markdown-it-footnote": "3.0.2",
-		"markdown-it-highlightjs-external": "1.0.1",
-		"markdown-it-images-preview": "1.0.1",
-		"markdown-it-ins": "3.0.0",
-		"markdown-it-katex-external": "1.0.0",
-		"markdown-it-mark": "3.0.0",
-		"markdown-it-mathjax": "2.0.0",
-		"markdown-it-regexp": "0.4.0",
-		"markdown-it-sub": "1.0.0",
-		"markdown-it-sup": "1.0.0",
-		"markdown-it-table-of-contents": "0.4.4",
-		"markdown-it-task-lists": "2.1.1",
-		"pdfobject": "2.1.1",
-		"prismjs": "1.21.0",
-		"validator": "13.1.1"
-	},
-	"babel": {
-		"presets": [
-			"@babel/preset-env"
-		]
-	},
-	"license": "GPL-3.0"
+  "name": "gulp-es6",
+  "version": "1.1.0",
+  "description": "Gulpfile setup for Javascript ES6 compiling, plus SCSS, images, and fonts handling",
+  "author": "Alessandro Castellani <me@alecaddd.com> (http://alecaddd.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alecaddd/gulp-es6"
+  },
+  "keywords": [
+    "gulp",
+    "es6",
+    "scss"
+  ],
+  "scripts": {
+    "build": "gulp",
+    "dev": "live-server --port=8085 ./dist"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "babelify": "^10.0.0",
+    "browser-sync": "^2.26.3",
+    "browserify": "^16.2.3",
+    "browserify-shim": "^3.8.14",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-if": "^2.0.2",
+    "gulp-notify": "^3.0.0",
+    "gulp-options": "^1.1.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-uglifycss": "^1.0.9",
+    "live-server": "^1.2.1",
+    "rollup": "^2.56.3",
+    "rollup-plugin-external-globals": "^0.6.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.39.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "highlight.js": "10.1.2",
+    "highlightjs-solidity": "1.0.18",
+    "jquery": "3.5.1",
+    "lodash": "4.17.20",
+    "markdown-it": "11.0.0",
+    "markdown-it-abbr": "1.0.4",
+    "markdown-it-anchor": "5.3.0",
+    "markdown-it-container": "3.0.0",
+    "markdown-it-deflist": "2.0.3",
+    "markdown-it-emoji": "1.4.0",
+    "markdown-it-footnote": "3.0.2",
+    "markdown-it-highlightjs-external": "1.0.1",
+    "markdown-it-images-preview": "1.0.1",
+    "markdown-it-ins": "3.0.0",
+    "markdown-it-katex-external": "1.0.0",
+    "markdown-it-mark": "3.0.0",
+    "markdown-it-mathjax": "2.0.0",
+    "markdown-it-regexp": "0.4.0",
+    "markdown-it-sub": "1.0.0",
+    "markdown-it-sup": "1.0.0",
+    "markdown-it-table-of-contents": "0.4.4",
+    "markdown-it-task-lists": "2.1.1",
+    "pdfobject": "2.1.1",
+    "prismjs": "1.21.0",
+    "validator": "13.1.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "license": "GPL-3.0"
 }
