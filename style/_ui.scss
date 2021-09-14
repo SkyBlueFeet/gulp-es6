@@ -1,0 +1,21 @@
+$body-width: 980px;
+@use "sass:math";
+
+.docs-container {
+  position: relative;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+#warpper {
+  box-sizing: border-box;
+  padding: 20px 45px;
+}
+.table-of-contents {
+  position: fixed;
+  right: 5%;
+  top: 10%;
+  background-color: aliceblue;
+
+  font-size: 12px;
+}
