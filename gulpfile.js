@@ -1,55 +1,55 @@
 // Load Gulp...of course
-const { src, dest, task, watch, series, parallel } = require("gulp");
+const { src, dest, task, watch, series, parallel } = require('gulp');
 
 // CSS related plugins
-var sass = require("gulp-sass")(require("sass"));
-var autoprefixer = require("gulp-autoprefixer");
+var sass = require('gulp-sass')(require('sass'));
+var autoprefixer = require('gulp-autoprefixer');
 
 // JS related plugins
-var uglify = require("gulp-uglify");
-var babelify = require("babelify");
-var browserify = require("browserify");
-var source = require("vinyl-source-stream");
-var buffer = require("vinyl-buffer");
-var stripDebug = require("gulp-strip-debug");
+var uglify = require('gulp-uglify');
+var babelify = require('babelify');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var stripDebug = require('gulp-strip-debug');
 
 // Utility plugins
-var rename = require("gulp-rename");
-var sourcemaps = require("gulp-sourcemaps");
-var notify = require("gulp-notify");
-var plumber = require("gulp-plumber");
-var options = require("gulp-options");
-var gulpif = require("gulp-if");
+var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
+var notify = require('gulp-notify');
+var plumber = require('gulp-plumber');
+var options = require('gulp-options');
+var gulpif = require('gulp-if');
 
 // Browers related plugins
-var browserSync = require("browser-sync").create();
+var browserSync = require('browser-sync').create();
 
 // Project related variables
-var styleSRC = "./style/**/*.scss";
-var styleURL = "./dist/css/";
-var mapURL = "./";
+var styleSRC = './style/**/*.scss';
+var styleURL = './dist/css/';
+var mapURL = './';
 
-var jsSRC = "./src/";
-var jsFront = "index.js";
+var jsSRC = './src/';
+var jsFront = 'index.js';
 var jsFiles = [jsFront];
-var jsURL = "./dist/js/";
+var jsURL = './dist/js/';
 
-var imgSRC = "./style/images/**/*";
-var imgURL = "./dist/images/";
+var imgSRC = './style/images/**/*';
+var imgURL = './dist/images/';
 
-var fontsSRC = "./style/fonts/**/*";
-var fontsURL = "./dist/fonts/";
+var fontsSRC = './style/fonts/**/*';
+var fontsURL = './dist/fonts/';
 
-var styleWatch = "./style/**/*.scss";
-var jsWatch = "./src/js/**/*.js";
-var imgWatch = "./src/images/**/*.*";
-var fontsWatch = "./src/fonts/**/*.*";
+var styleWatch = './style/**/*.scss';
+var jsWatch = './src/js/**/*.js';
+var imgWatch = './src/images/**/*.*';
+var fontsWatch = './src/fonts/**/*.*';
 
 // Tasks
 function browser_sync() {
   browserSync.init({
     server: {
-      baseDir: "./dist/",
+      baseDir: './dist/',
     },
   });
 }
@@ -65,16 +65,16 @@ function css(done) {
     .pipe(
       sass({
         errLogToConsole: true,
-        outputStyle: "compressed",
+        outputStyle: 'compressed',
       })
     )
-    .on("error", console.error.bind(console))
+    .on('error', console.error.bind(console))
     .pipe(
       autoprefixer({
-        overrideBrowserslist: ["last 2 versions", "> 5%", "Firefox ESR"],
+        overrideBrowserslist: ['last 2 versions', '> 5%', 'Firefox ESR'],
       })
     )
-    .pipe(rename({ suffix: ".min" }))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(sourcemaps.write(mapURL))
     .pipe(dest(styleURL))
     .pipe(browserSync.stream());
@@ -86,19 +86,19 @@ function js(done) {
     return browserify({
       entries: [jsSRC + entry],
     })
-      .transform(babelify, { presets: ["@babel/preset-env"] })
+      .transform(babelify, { presets: ['@babel/preset-env'] })
       .bundle()
       .pipe(source(entry))
       .pipe(
         rename({
-          extname: ".min.js",
+          extname: '.min.js',
         })
       )
       .pipe(buffer())
-      .pipe(gulpif(options.has("production"), stripDebug()))
+      .pipe(gulpif(options.has('production'), stripDebug()))
       .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(uglify())
-      .pipe(sourcemaps.write("."))
+      .pipe(sourcemaps.write('.'))
       .pipe(dest(jsURL))
       .pipe(browserSync.stream());
   });
@@ -123,19 +123,19 @@ function fonts() {
 
 function watch_files() {
   watch(styleWatch, series(css, reload));
-  watch(jsWatch, series(js, reload));
+  // watch(jsWatch, series(js, reload));
   watch(imgWatch, series(images, reload));
   watch(fontsWatch, series(fonts, reload));
   // watch(htmlWatch, series(html, reload));
-  src(jsURL + "main.min.js").pipe(
-    notify({ message: "Gulp is Watching, Happy Coding!" })
+  src(jsURL + 'main.min.js', { allowEmpty: true }).pipe(
+    notify({ message: 'Gulp is Watching, Happy Coding!' })
   );
 }
 
-task("css", css);
+task('css', css);
 // task("js", js);
-task("images", images);
-task("fonts", fonts);
+task('images', images);
+task('fonts', fonts);
 // task("html", html);
-task("default", parallel(css, js, images, fonts));
-task("watch", parallel(browser_sync, watch_files));
+task('default', parallel(css, images, fonts));
+task('watch', parallel(browser_sync, watch_files));

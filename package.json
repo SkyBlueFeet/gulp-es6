@@ -14,8 +14,8 @@
   ],
   "scripts": {
     "build": "gulp && rollup -c",
-    "build:style": "gulp",
-    "build:script": "gulp && rollup -c",
+    "build:style": "gulp watch",
+    "build:script": "rollup -c",
     "dev": "live-server --port=8085 ./dist"
   },
   "devDependencies": {

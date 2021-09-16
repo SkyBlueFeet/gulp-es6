@@ -19468,11 +19468,26 @@ var mdRenderPlugin = (function (exports) {
 	  afterInlineMath: '\\)</span>',
 	  beforeDisplayMath: '<span class="mathjax raw">\\[',
 	  afterDisplayMath: '\\]</span>'
-	})).use(markdownItTaskLists).use(t).use(markdownItTableOfContents, {
+	})).use(markdownItTaskLists).use(t, {
+	  permalink: true,
+	  permalinkBefore: true,
+	  permalinkSymbol: '§',
+	  slugify: function slugify(link) {
+	    return decodeURI(link);
+	  }
+	}).use(markdownItTableOfContents, {
 	  includeLevel: [1, 2, 3],
 	  // hackmd 也只支持到了h3
-	  markerPattern: /^\[toc\]|^\[\[toc\]\]/im // 如果想 支持 [[toc]] [toc] 的话不能添加 $
-
+	  markerPattern: /^\[toc\]|^\[\[toc\]\]/im,
+	  // 如果想 支持 [[toc]] [toc] 的话不能添加 $
+	  transformLink: function transformLink(link) {
+	    return decodeURI(link);
+	  },
+	  format: function format(headingAsString) {
+	    // manipulate the headings as you like here.
+	    console.log(md.renderInline(headingAsString));
+	    return md.render(headingAsString).replace(/<[^<>]+>/g, '');
+	  }
 	});
 	injectLineNumber(md);
 
