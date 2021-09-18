@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'CoderHappyFont';
+  src: url('fonts/consolas/consolas-webfont.eot');
+  src: url('fonts/consolas/consolas-webfont.eot?#iefix')
+      format('embedded-opentype'),
+    url('fonts/consolas/consolas-webfont.woff') format('woff'),
+    url('fonts/consolas/consolas-webfont.ttf') format('truetype'),
+    url('fonts/consolas/consolas-webfont.svg#ConsolasRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ConsolaYaHei';
+  src: url('fonts/console-yahei/consolas.woff') format('woff'),
+    url('fonts/console-yahei/consolas.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FiraCode';
+  src: url('fonts/FiraCode/FiraCode-Regular.woff') format('woff'),
+    url('fonts/FiraCode/FiraCode-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

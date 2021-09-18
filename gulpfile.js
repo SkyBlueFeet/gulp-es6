@@ -25,7 +25,7 @@ var gulpif = require('gulp-if');
 var browserSync = require('browser-sync').create();
 
 // Project related variables
-var styleSRC = './style/**/*.scss';
+var styleSRC = './style/default/**/*.scss';
 var styleURL = './dist/css/';
 var mapURL = './';
 
@@ -37,7 +37,7 @@ var jsURL = './dist/js/';
 var imgSRC = './style/images/**/*';
 var imgURL = './dist/images/';
 
-var fontsSRC = './style/fonts/**/*';
+var fontsSRC = './style/**/*.ttf';
 var fontsURL = './dist/fonts/';
 
 var styleWatch = './style/**/*.scss';

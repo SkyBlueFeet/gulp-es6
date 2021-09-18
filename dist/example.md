@@ -168,6 +168,8 @@ public class HelloWorld {
 
 [链接标识]: https://b3log.org
 
+https://b3log.org
+
 ```
 [链接文本][链接标识]
 

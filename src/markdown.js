@@ -39,6 +39,10 @@ import mark from 'markdown-it-mark';
 // taskLists
 import taskLists from 'markdown-it-task-lists';
 
+import mila from 'markdown-it-link-attributes';
+
+import headings from '@gerhobbelt/markdown-it-github-headings';
+
 // 注释原因: 因为和markdown-it-anchor的功能冲突了(他们的实现方法不一样)
 // let toc = require('markdown-it-toc')
 // anchor
@@ -98,6 +102,7 @@ markdown
   // 下面三个和原来库保持一致
   .use(deflist)
   .use(abbr)
+
   .use(footnote)
   .use(insert)
   .use(mark)
@@ -116,21 +121,28 @@ markdown
   .use(anchor, {
     permalink: true,
     permalinkBefore: true,
-    permalinkSymbol: '§',
+    // permalinkSymbol: '§',
     slugify: (link) => decodeURI(link),
   })
+  // .use(headings, {})
   .use(tableOfContents, {
-    includeLevel: [1, 2, 3], // hackmd 也只支持到了h3
+    includeLevel: [2, 3], // hackmd 也只支持到了h3
     markerPattern: /^\[toc\]|^\[\[toc\]\]/im, // 如果想 支持 [[toc]] [toc] 的话不能添加 $
     transformLink: (link) => {
       return decodeURI(link);
     },
     format: function format(headingAsString) {
       // manipulate the headings as you like here.
-      console.log(markdown.renderInline(headingAsString));
       return markdown.render(headingAsString).replace(/<[^<>]+>/g, '');
     },
   });
+// .use(mila, {
+//   pattern: /^https?:\/\//,
+//   attrs: {
+//     class: 'extralink',
+//     target: '_blank',
+//   },
+// });
 
 injectLineNumber(markdown);
 

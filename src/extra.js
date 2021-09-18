@@ -1,20 +1,21 @@
-import escapeHTML from "lodash.escape";
-import isURL from "validator/lib/isURL";
-import Plugin from "markdown-it-regexp";
-import mdIt from "markdown-it";
+import escapeHTML from 'lodash.escape';
+import isURL from 'validator/lib/isURL';
+import Plugin from 'markdown-it-regexp';
+import mdIt from 'markdown-it';
 
-function IsURL (str_url) { 
-  var strRegex = '^((https|http|ftp|rtsp|mms)?://)' 
-  + '?(([0-9a-z_!~*\'().&=+$%-]+: )?[0-9a-z_!~*\'().&=+$%-]+@)?' //ftp的user@ 
-  + '(([0-9]{1,3}.){3}[0-9]{1,3}' // IP形式的URL- 199.194.52.184 
-  + '|' // 允许IP和DOMAIN（域名） 
-  + '([0-9a-z_!~*\'()-]+.)*' // 域名- www. 
-  + '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' // 二级域名 
-  + '[a-z]{2,6})' // first level domain- .com or .museum 
-  + '(:[0-9]{1,4})?' // 端口- :80 
-  + '((/?)|' // a slash isn't required if there is no file name 
-  + '(/[0-9a-zA-Z_!~*\'().;?:@&=+$,%#-]+)+/?)$'; 
-  var re=new RegExp(strRegex); 
+function IsURL(str_url) {
+  var strRegex =
+    '^((https|http|ftp|rtsp|mms)?://)' +
+    "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" + //ftp的user@
+    '(([0-9]{1,3}.){3}[0-9]{1,3}' + // IP形式的URL- 199.194.52.184
+    '|' + // 允许IP和DOMAIN（域名）
+    "([0-9a-z_!~*'()-]+.)*" + // 域名- www.
+    '([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].' + // 二级域名
+    '[a-z]{2,6})' + // first level domain- .com or .museum
+    '(:[0-9]{1,4})?' + // 端口- :80
+    '((/?)|' + // a slash isn't required if there is no file name
+    "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+  var re = new RegExp(strRegex);
   return re.test(str_url);
 }
 
@@ -33,13 +34,13 @@ function highlightRender(code, lang) {
       paraMatch &&
         paraMatch.forEach((param) => {
           param = param.trim();
-          if (param[0] === "#") {
-            params["id"] = param.slice(1);
-          } else if (param[0] === ".") {
-            if (params["class"]) params["class"] = [];
-            params["class"] = params["class"].concat(param.slice(1));
+          if (param[0] === '#') {
+            params['id'] = param.slice(1);
+          } else if (param[0] === '.') {
+            if (params['class']) params['class'] = [];
+            params['class'] = params['class'].concat(param.slice(1));
           } else {
-            const offset = param.indexOf("=");
+            const offset = param.indexOf('=');
             const id = param.substring(0, offset).trim().toLowerCase();
             let val = param.substring(offset + 1).trim();
             const valStart = val[0];
@@ -51,9 +52,9 @@ function highlightRender(code, lang) {
             ) {
               val = val.substring(1, val.length - 1);
             }
-            if (id === "class") {
-              if (params["class"]) params["class"] = [];
-              params["class"] = params["class"].concat(val);
+            if (id === 'class') {
+              if (params['class']) params['class'] = [];
+              params['class'] = params['class'].concat(val);
             } else {
               params[id] = val;
             }
@@ -64,19 +65,19 @@ function highlightRender(code, lang) {
   }
   function serializeParamToAttribute(params) {
     if (Object.getOwnPropertyNames(params).length === 0) {
-      return "";
+      return '';
     } else {
       return ` data-params="${escape(JSON.stringify(params))}"`;
     }
   }
   const fenceCodeAlias = {
-    sequence: "sequence-diagram",
-    flow: "flow-chart",
-    graphviz: "graphviz",
-    mermaid: "mermaid",
-    abc: "abc",
-    vega: "vega",
-    geo: "geo",
+    sequence: 'sequence-diagram',
+    flow: 'flow-chart',
+    graphviz: 'graphviz',
+    mermaid: 'mermaid',
+    abc: 'abc',
+    vega: 'vega',
+    geo: 'geo',
   };
 
   const params = parseFenceCodeParams(lang);
@@ -100,15 +101,15 @@ function highlightRender(code, lang) {
     if (matches) {
       startnumber = parseInt(matches[1]);
     }
-    const lines = result.value.split("\n");
+    const lines = result.value.split('\n');
     const linenumbers = [];
     for (let i = 0; i < lines.length - 1; i++) {
       linenumbers[i] = `<span data-linenumber='${startnumber + i}'></span>`;
     }
     const continuelinenumber = /=\+$/.test(lang);
     const linegutter = `<div class='gutter linenumber${
-      continuelinenumber ? " continue" : ""
-    }'>${linenumbers.join("\n")}</div>`;
+      continuelinenumber ? ' continue' : ''
+    }'>${linenumbers.join('\n')}</div>`;
     result.value = `<div class='wrapper'>${linegutter}<div class='code'>${result.value}</div></div>`;
   }
   return result.value;
@@ -118,10 +119,10 @@ const md = mdIt({
   html: true, // Enable HTML tags in source
   xhtmlOut: true, // Use '/' to close single tags (<br />).
   breaks: true, // Convert '\n' in paragraphs into <br>
-  langPrefix: "", // CSS language prefix for fenced blocks. Can be
+  langPrefix: '', // CSS language prefix for fenced blocks. Can be
   linkify: false, // 自动识别url
   typographer: true,
-  quotes: "“”‘’",
+  quotes: '“”‘’',
   highlight: highlightRender,
 });
 
@@ -135,7 +136,7 @@ const pdfPlugin = new Plugin(
     const pdfurl = match[1];
     if (!isURL(pdfurl)) return match[0];
     const div = $('<div class="pdf raw"></div>');
-    div.attr("data-pdfurl", pdfurl);
+    div.attr('data-pdfurl', pdfurl);
     return div[0].outerHTML;
   }
 );
@@ -145,7 +146,7 @@ md.use(pdfPlugin);
 const spaceregex = /\s*/;
 const notinhtmltagregex = /(?![^<]*>|[^<>]*<\/)/;
 let coloregex = /\[color=([#|(|)|\s|,|\w]*?)\]/;
-coloregex = new RegExp(coloregex.source + notinhtmltagregex.source, "g");
+coloregex = new RegExp(coloregex.source + notinhtmltagregex.source, 'g');
 let nameregex = /\[name=(.*?)\]/;
 let timeregex = /\[time=([:|,|+|-|(|)|\s|\w]*?)\]/;
 const nameandtimeregex = new RegExp(
@@ -153,10 +154,10 @@ const nameandtimeregex = new RegExp(
     spaceregex.source +
     timeregex.source +
     notinhtmltagregex.source,
-  "g"
+  'g'
 );
-nameregex = new RegExp(nameregex.source + notinhtmltagregex.source, "g");
-timeregex = new RegExp(timeregex.source + notinhtmltagregex.source, "g");
+nameregex = new RegExp(nameregex.source + notinhtmltagregex.source, 'g');
+timeregex = new RegExp(timeregex.source + notinhtmltagregex.source, 'g');
 
 function replaceExtraTags(html) {
   html = html.replace(coloregex, '<span class="color" data-color="$1"></span>');
